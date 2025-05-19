@@ -128,13 +128,13 @@ class ProductImageView extends StatelessWidget {
                   (productModel != null && productModel!.has3d ==1)?
                   Positioned(top:  0, left: 0,
                     child: Column(children: [
-                      InkWell(onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => MachineAssemblyParts3DWidget(title: '${productModel!.code} - ${productModel!.description}', file:  productModel!.threedfile,))),
+                    /*  InkWell(onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => MachineAssemblyParts3DWidget(title: '${productModel!.code} - ${productModel!.description}', file:  productModel!.threedfile,))),
                           child: Card(elevation: 2,
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
                               child: Container(width: 40, height: 40,
                                   decoration: BoxDecoration(color: Theme.of(context).cardColor, shape: BoxShape.circle),
                                   child: Padding(padding: const EdgeInsets.all(Dimensions.paddingSizeSmall),
-                                      child: SvgPicture.asset(Images.threeDIcon1,height: 20,width: 20, color:Theme.of(context).primaryColor)))))
+                                      child: SvgPicture.asset(Images.threeDIcon1,height: 20,width: 20, color:Theme.of(context).primaryColor)))))*/
                     ],
                     ),
                   ):const SizedBox(),
