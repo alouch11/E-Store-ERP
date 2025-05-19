@@ -191,7 +191,7 @@ State<MachineScreen> createState() => _MachineScreenState();
 
              //Center(child: Text( '${widget.machineModel!.machineId}')),
               //const Center(child: Text('3D Model')),
-            MachineAssemblyParts3DWidget(title: widget.machineModel!.name, file: '',)
+           // MachineAssemblyParts3DWidget(title: widget.machineModel!.name, file: '',)
           ],
         ),
 
