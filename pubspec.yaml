@@ -89,7 +89,6 @@ dependencies:
   youtube_player_flutter: ^9.0.4
   table_calendar: ^3.0.9
   model_viewer_plus: ^1.7.2
-  flutter_3d_controller: ^2.0.2
   url_strategy: ^0.3.0
   flutter_cached_pdfview: ^0.4.3
   pdfrx: ^1.0.94
