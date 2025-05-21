@@ -93,8 +93,7 @@ dependencies:
   flutter_cached_pdfview: ^0.4.3
   pdfrx: ^1.0.94
   side_sheet: ^1.0.4
-  flutter_facebook_auth: ^4.4.1+1
-  google_maps_webservice: ^0.0.19
+  flutter_3d_controller: ^2.0.2
 
 
 
