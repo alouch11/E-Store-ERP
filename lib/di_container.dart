@@ -59,6 +59,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => DioClient(AppConstants.baseUrl, sl(), loggingInterceptor: sl(), sharedPreferences: sl()));
 
   // Repository // Reports
+  sl.registerLazySingleton(() => ProfileRepo(dioClient: sl(), sharedPreferences: sl()));
   sl.registerLazySingleton(() => CategoryRepository(dioClient: sl()));
   sl.registerLazySingleton(() => HomeCategoryProductRepo(dioClient: sl()));
   sl.registerLazySingleton(() => TopSellerRepo(dioClient: sl()));
@@ -76,13 +77,13 @@ Future<void> init() async {
   sl.registerLazySingleton(() => SellerRepo(dioClient: sl()));
   sl.registerLazySingleton(() => ChatRepo(dioClient: sl()));
   sl.registerLazySingleton(() => NotificationRepo(dioClient: sl()));
-  sl.registerLazySingleton(() => ProfileRepo(dioClient: sl(), sharedPreferences: sl()));
   sl.registerLazySingleton(() => WishListRepo(dioClient: sl()));
   sl.registerLazySingleton(() => SplashRepo(sharedPreferences: sl(), dioClient: sl()));
   sl.registerLazySingleton(() => DashboardRepo(dioClient: sl()));
 
 
   // Provider
+  sl.registerFactory(() => ProfileProvider(profileRepo: sl()));
   sl.registerFactory(() => CategoryController(categoryRepo: sl()));
   sl.registerFactory(() => HomeCategoryProductProvider(homeCategoryProductRepo: sl()));
   sl.registerFactory(() => TopSellerProvider(topSellerRepo: sl()));
@@ -100,7 +101,6 @@ Future<void> init() async {
   sl.registerFactory(() => SellerProvider(sellerRepo: sl()));
   sl.registerFactory(() => ChatProvider(chatRepo: sl()));
   sl.registerFactory(() => NotificationProvider(notificationRepo: sl()));
-  sl.registerFactory(() => ProfileProvider(profileRepo: sl()));
   sl.registerFactory(() => WishListProvider(wishListRepo: sl(), productDetailsRepo: sl()));
   sl.registerFactory(() => SplashProvider(splashRepo: sl()));
   sl.registerFactory(() => LocalizationProvider(sharedPreferences: sl(), dioClient: sl()));

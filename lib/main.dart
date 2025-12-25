@@ -2,14 +2,18 @@ import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_spareparts_store/features/banner/controllers/banner_controller.dart';
 import 'package:flutter_spareparts_store/features/dashboard-serviceman/provider/dashboard_provider.dart';
+import 'package:flutter_spareparts_store/features/dashboard/dashboard_screen.dart';
 import 'package:flutter_spareparts_store/features/lines/provider/lines_provider.dart';
 import 'package:flutter_spareparts_store/features/lines/provider/machines_provider.dart';
+import 'package:flutter_spareparts_store/features/order/view/order_details_screen.dart';
+import 'package:flutter_spareparts_store/features/sale/view/sale_details_screen.dart';
 import 'package:flutter_spareparts_store/push_notification/model/notification_body.dart';
 import 'package:flutter_spareparts_store/features/product/provider/home_category_product_provider.dart';
 import 'package:flutter_spareparts_store/features/shop/provider/top_seller_provider.dart';
@@ -33,16 +37,15 @@ import 'package:flutter_spareparts_store/theme/dark_theme.dart';
 import 'package:flutter_spareparts_store/theme/light_theme.dart';
 import 'package:flutter_spareparts_store/utill/app_constants.dart';
 import 'package:flutter_spareparts_store/features/splash/view/splash_screen.dart';
+import 'package:path/path.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
-
 import 'di_container.dart' as di;
 import 'helper/custom_delegate.dart';
 import 'localization/app_localization.dart';
 import 'features/product/provider/product_details_provider.dart';
 import 'features/product/provider/product_provider.dart';
-
-
+import 'package:receive_intent/receive_intent.dart';
 
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
@@ -58,14 +61,27 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
 
-  await Firebase.initializeApp();
+  ///await Firebase.initializeApp();
+  if(Firebase.apps.isEmpty) {
+    if(Platform.isAndroid) {
+      try{
+        ///todo you need to configure that firebase Option with your own firebase to run your app
+        await Firebase.initializeApp(options: const FirebaseOptions(
+            apiKey: "AIzaSyDxtyjvbrSojsujYRgNcUFwFdUFpGxwK8o",
+            projectId: "1:53499485752:android:58702b5c27e928b6ced0cd",
+            messagingSenderId: "53499485752",
+            appId: "e-store-be1b9"
+        ));
+      }finally{
+        await Firebase.initializeApp();
+      }
+    }else{
+      await Firebase.initializeApp();
+    }
+  }
   await FlutterDownloader.initialize(debug: true , ignoreSsl: true);
   await di.init();
 
-
-    ///Web App
-  //usePathUrlStrategy();
-  //setPathUrlStrategy();
 
 
 
@@ -90,13 +106,16 @@ Future<void> main() async {
   }catch(_) {}
 
 
-  await NotificationHelper.initialize(flutterLocalNotificationsPlugin);
+
+    await NotificationHelper.initialize(flutterLocalNotificationsPlugin);
   FirebaseMessaging.onBackgroundMessage(myBackgroundMessageHandler);
 
 
 
 
   runApp(MultiProvider(providers: [
+      ChangeNotifierProvider(create: (context) => di.sl<ProfileProvider>()),
+      ChangeNotifierProvider(create: (context) => di.sl<SplashProvider>()),
       ChangeNotifierProvider(create: (context) => di.sl<CategoryController>()),
       ChangeNotifierProvider(create: (context) => di.sl<HomeCategoryProductProvider>()),
       ChangeNotifierProvider(create: (context) => di.sl<TopSellerProvider>()),
@@ -116,7 +135,6 @@ Future<void> main() async {
       ChangeNotifierProvider(create: (context) => di.sl<NotificationProvider>()),
       ChangeNotifierProvider(create: (context) => di.sl<ProfileProvider>()),
       ChangeNotifierProvider(create: (context) => di.sl<WishListProvider>()),
-      ChangeNotifierProvider(create: (context) => di.sl<SplashProvider>()),
       ChangeNotifierProvider(create: (context) => di.sl<LocalizationProvider>()),
       ChangeNotifierProvider(create: (context) => di.sl<ThemeProvider>()),
       ChangeNotifierProvider(create: (context) => di.sl<DashboardProvider>()),
@@ -170,3 +188,5 @@ class MyHttpOverrides extends HttpOverrides {
     return super.createHttpClient(context)..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
   }
 }
+
+
