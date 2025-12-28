@@ -68,10 +68,10 @@ dependencies:
   card_swiper: ^3.0.1
   flutter_native_splash: ^2.3.2
   animations: ^2.0.8
-  emoji_picker_flutter: ^1.6.2
+  emoji_picker_flutter: ^2.2.0
   webview_flutter_android: ^3.12.1
   webview_flutter_wkwebview: ^3.9.4
-  sqflite: 2.2.7
+  sqflite: ^2.3.3+1
   just_audio: ^0.9.36
   file_picker: ^8.1.4
   external_app_launcher: ^4.0.0
@@ -95,9 +95,12 @@ dependencies:
   flutter_cached_pdfview: ^0.4.3
   easy_pdf_viewer: ^1.0.8
   pdfrx: ^1.0.94
-  side_sheet: ^1.0.4
+  side_sheet: ^1.0.4+1
   flutter_barcode_scanner: ^2.0.0
   receive_intent: ^0.2.7
+  pdf: ^3.10.1
+  omni_datetime_picker: ^1.1.0
+  
 
 
 
