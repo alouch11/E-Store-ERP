@@ -68,7 +68,7 @@ dependencies:
   card_swiper: ^3.0.1
   flutter_native_splash: ^2.3.2
   animations: ^2.0.8
-  emoji_picker_flutter: ^2.2.0
+  emoji_picker_flutter: ^1.6.4
   webview_flutter_android: ^3.12.1
   webview_flutter_wkwebview: ^3.9.4
   sqflite: ^2.3.3+1
